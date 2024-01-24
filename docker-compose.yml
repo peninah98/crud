@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=development
+    environment:
+      - POSTGRESS_HOST = 127.0.0.1
+      - POSTGRESS_PORT = 5432
+      - POSTGRESS_USER = postgres
+      - POSTGRESS_PASSWORD = postgres
+      - POSTGRESS_DATABASE = crud     
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+
+  postgres:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRESS_USER = postgres
+      - POSTGRESS_PASSWORD = password
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+        - 8080:8080
