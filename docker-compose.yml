@@ -8,11 +8,11 @@ services:
       args:
         - NODE_ENV=development
     environment:
-      - POSTGRESS_HOST = 127.0.0.1
-      - POSTGRESS_PORT = 5432
-      - POSTGRESS_USER = postgres
-      - POSTGRESS_PASSWORD = postgres
-      - POSTGRESS_DATABASE = crud     
+      - POSTGRES_HOST = 127.0.0.1
+      - POSTGRES_PORT = 5432
+      - POSTGRES_USER = postgres
+      - POSTGRES_PASSWORD = postgres
+      - POSTGRES_DATABASE = crud
     ports:
       - 3000:3000
     depends_on:
@@ -28,11 +28,11 @@ services:
     image: postgres:alpine
     restart: always
     environment:
-      - POSTGRESS_USER = postgres
-      - POSTGRESS_PASSWORD = password
+      - POSTGRES_USER = postgres
+      - POSTGRES_PASSWORD = postgres
 
   adminer:
     image: adminer
     restart: always
     ports:
-        - 8080:8080
+      - 8080:8080
