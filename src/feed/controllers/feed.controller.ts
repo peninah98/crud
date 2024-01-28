@@ -6,11 +6,13 @@ import {
   Param,
   Patch,
   Post,
+  UseInterceptors,
 } from '@nestjs/common';
 import { FeedService } from '../services/feed.service';
 import { FeedPost } from './models/posts.interface';
 import { Observable } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { FeedInterceptor } from '../../Interceptors/feed.interceptor';
 
 @Controller('feed')
 export class FeedController {
@@ -21,6 +23,7 @@ export class FeedController {
     return this.feedService.createPost(feedPost);
   }
   @Get()
+  @UseInterceptors(FeedInterceptor)
   async getAll() {
     return this.feedService.getAll();
   }
