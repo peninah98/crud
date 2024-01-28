@@ -12,7 +12,6 @@ export class FeedInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
-    console.log(context.getClass().name);
     return next.handle();
   }
 }
