@@ -4,14 +4,15 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { FeedPostDTO } from '../feed/controllers/models/posts.interface';
 
 @Injectable()
 export class FeedInterceptor implements NestInterceptor {
   intercept(
     context: ExecutionContext,
     next: CallHandler<any>,
-  ): Observable<any> | Promise<Observable<any>> {
-    return next.handle();
+  ): Observable<FeedPostDTO[]> | Promise<Observable<FeedPostDTO[]>> {
+    return next.handle().pipe(map((data:FeedPostDTO) => data.map({ password, ...data })=>feeds:FeedPostDTO));
   }
 }

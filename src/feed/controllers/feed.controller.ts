@@ -9,7 +9,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FeedService } from '../services/feed.service';
-import { FeedPost } from './models/posts.interface';
+import { FeedPostDTO } from './models/posts.interface';
 import { Observable } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { FeedInterceptor } from '../../Interceptors/feed.interceptor';
@@ -19,7 +19,9 @@ export class FeedController {
   constructor(public readonly feedService: FeedService) {}
 
   @Post()
-  async create(@Body() feedPost: FeedPost): Promise<Observable<FeedPost>> {
+  async create(
+    @Body() feedPost: FeedPostDTO,
+  ): Promise<Observable<FeedPostDTO>> {
     return this.feedService.createPost(feedPost);
   }
   @Get()
@@ -31,7 +33,7 @@ export class FeedController {
   @Patch(':id')
   async update(
     @Param('id') id: number,
-    @Body() feedPost: FeedPost,
+    @Body() feedPost: FeedPostDTO,
   ): Promise<Observable<UpdateResult>> {
     return this.feedService.updatePost(id, feedPost);
   }
